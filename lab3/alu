@@ -1,0 +1,179 @@
+#! c:/iverilog-x64/bin/vvp
+:ivl_version "10.1 (stable)" "(v10_1_1)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0000000002714cf0 .scope module, "testBench" "testBench" 2 23;
+ .timescale 0 0;
+v00000000027867c0_0 .net "BusA", 31 0, v00000000027268b0_0;  1 drivers
+v0000000002785b40_0 .net "BusB", 31 0, v0000000002726630_0;  1 drivers
+o000000000272dc98 .functor BUFZ 1, C4<z>; HiZ drive
+v0000000002785460_0 .net "Carry", 0 0, o000000000272dc98;  0 drivers
+v0000000002785500_0 .net "Control", 2 0, v0000000002727170_0;  1 drivers
+v0000000002785820_0 .net "Negative", 0 0, L_00000000027873d0;  1 drivers
+o000000000272dd28 .functor BUFZ 1, C4<z>; HiZ drive
+v0000000002785e60_0 .net "Overflow", 0 0, o000000000272dd28;  0 drivers
+v00000000027858c0_0 .net "Zero", 0 0, L_0000000002786ed0;  1 drivers
+RS_000000000272dd88 .resolv tri, L_00000000027869a0, L_0000000002786a40, L_0000000002786540, L_00000000027884b0;
+v0000000002785f00_0 .net8 "outBus", 31 0, RS_000000000272dd88;  4 drivers
+S_0000000002714e70 .scope module, "aTester" "Tester" 2 31, 2 40 0, S_0000000002714cf0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 32 "outBus"
+    .port_info 1 /INPUT 1 "Zero"
+    .port_info 2 /INPUT 1 "Overflow"
+    .port_info 3 /INPUT 1 "Carry"
+    .port_info 4 /INPUT 1 "Negative"
+    .port_info 5 /OUTPUT 32 "BusA"
+    .port_info 6 /OUTPUT 32 "BusB"
+    .port_info 7 /OUTPUT 3 "Control"
+P_00000000027275c0 .param/l "stimDelay" 0 2 47, +C4<00000000000000000000000000000001>;
+v00000000027268b0_0 .var "BusA", 31 0;
+v0000000002726630_0 .var "BusB", 31 0;
+v00000000027270d0_0 .net "Carry", 0 0, o000000000272dc98;  alias, 0 drivers
+v0000000002727170_0 .var "Control", 2 0;
+v0000000002726c70_0 .net "Negative", 0 0, L_00000000027873d0;  alias, 1 drivers
+v0000000002726a90_0 .net "Overflow", 0 0, o000000000272dd28;  alias, 0 drivers
+v00000000027273f0_0 .net "Zero", 0 0, L_0000000002786ed0;  alias, 1 drivers
+v00000000027264f0_0 .net8 "outBus", 31 0, RS_000000000272dd88;  alias, 4 drivers
+S_00000000027168d0 .scope module, "my_alu" "alu" 2 29, 2 1 0, S_0000000002714cf0;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 32 "outBus"
+    .port_info 1 /OUTPUT 1 "Zero"
+    .port_info 2 /OUTPUT 1 "Overflow"
+    .port_info 3 /OUTPUT 1 "Carry"
+    .port_info 4 /OUTPUT 1 "Negative"
+    .port_info 5 /INPUT 32 "BusA"
+    .port_info 6 /INPUT 32 "BusB"
+    .port_info 7 /INPUT 3 "Control"
+L_0000000002716c60 .functor AND 32, v00000000027268b0_0, v0000000002726630_0, C4<11111111111111111111111111111111>, C4<11111111111111111111111111111111>;
+L_00000000026e31a0 .functor OR 32, v00000000027268b0_0, v0000000002726630_0, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>;
+L_00000000027199e0 .functor XOR 32, v00000000027268b0_0, v0000000002726630_0, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>;
+L_00000000027d02c8 .functor BUFT 1, C4<1>, C4<0>, C4<0>, C4<0>;
+L_0000000002729c70 .functor XNOR 1, L_00000000027870b0, L_00000000027d02c8, C4<0>, C4<0>;
+v0000000002726590_0 .net "BusA", 31 0, v00000000027268b0_0;  alias, 1 drivers
+v0000000002726770_0 .net "BusB", 31 0, v0000000002726630_0;  alias, 1 drivers
+v0000000002785c80_0 .net "Carry", 0 0, o000000000272dc98;  alias, 0 drivers
+v0000000002785be0_0 .net "Control", 2 0, v0000000002727170_0;  alias, 1 drivers
+v0000000002784f60_0 .net "Negative", 0 0, L_00000000027873d0;  alias, 1 drivers
+v00000000027855a0_0 .net "Overflow", 0 0, o000000000272dd28;  alias, 0 drivers
+v0000000002785320_0 .net "Zero", 0 0, L_0000000002786ed0;  alias, 1 drivers
+L_00000000027d0088 .functor BUFT 1, C4<011>, C4<0>, C4<0>, C4<0>;
+v0000000002785140_0 .net/2u *"_s0", 2 0, L_00000000027d0088;  1 drivers
+L_00000000027d00d0 .functor BUFT 1, C4<100>, C4<0>, C4<0>, C4<0>;
+v0000000002785dc0_0 .net/2u *"_s10", 2 0, L_00000000027d00d0;  1 drivers
+v0000000002786180_0 .net *"_s12", 0 0, L_0000000002785fa0;  1 drivers
+v0000000002786c20_0 .net *"_s14", 31 0, L_00000000026e31a0;  1 drivers
+o000000000272dff8 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+; Elide local net with no drivers, v00000000027865e0_0 name=_s16
+v0000000002786040_0 .net *"_s2", 0 0, L_0000000002786860;  1 drivers
+L_00000000027d0118 .functor BUFT 1, C4<101>, C4<0>, C4<0>, C4<0>;
+v0000000002784ec0_0 .net/2u *"_s20", 2 0, L_00000000027d0118;  1 drivers
+v0000000002784e20_0 .net *"_s22", 0 0, L_0000000002786400;  1 drivers
+v0000000002785000_0 .net *"_s24", 31 0, L_00000000027199e0;  1 drivers
+o000000000272e0e8 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+; Elide local net with no drivers, v0000000002786680_0 name=_s26
+L_00000000027d0160 .functor BUFT 1, C4<110>, C4<0>, C4<0>, C4<0>;
+v0000000002786220_0 .net/2u *"_s30", 2 0, L_00000000027d0160;  1 drivers
+v00000000027850a0_0 .net *"_s32", 0 0, L_0000000002786ae0;  1 drivers
+v0000000002786900_0 .net *"_s34", 31 0, L_0000000002784d80;  1 drivers
+v00000000027864a0_0 .net *"_s36", 27 0, L_0000000002786b80;  1 drivers
+L_00000000027d01a8 .functor BUFT 1, C4<0000>, C4<0>, C4<0>, C4<0>;
+v0000000002786360_0 .net *"_s38", 3 0, L_00000000027d01a8;  1 drivers
+v0000000002785960_0 .net *"_s4", 31 0, L_0000000002716c60;  1 drivers
+o000000000272e238 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+; Elide local net with no drivers, v0000000002785640_0 name=_s40
+L_00000000027d01f0 .functor BUFT 1, C4<00000000000000000000000000000000>, C4<0>, C4<0>, C4<0>;
+v0000000002785780_0 .net/2u *"_s44", 31 0, L_00000000027d01f0;  1 drivers
+v00000000027853c0_0 .net *"_s46", 0 0, L_00000000027871f0;  1 drivers
+L_00000000027d0238 .functor BUFT 1, C4<1>, C4<0>, C4<0>, C4<0>;
+v0000000002786720_0 .net/2u *"_s48", 0 0, L_00000000027d0238;  1 drivers
+L_00000000027d0280 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+v0000000002785a00_0 .net/2u *"_s50", 0 0, L_00000000027d0280;  1 drivers
+v00000000027860e0_0 .net *"_s55", 0 0, L_00000000027870b0;  1 drivers
+v00000000027862c0_0 .net/2u *"_s56", 0 0, L_00000000027d02c8;  1 drivers
+v0000000002785d20_0 .net *"_s58", 0 0, L_0000000002729c70;  1 drivers
+o000000000272e3b8 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+; Elide local net with no drivers, v0000000002785280_0 name=_s6
+L_00000000027d0310 .functor BUFT 1, C4<1>, C4<0>, C4<0>, C4<0>;
+v00000000027856e0_0 .net/2u *"_s60", 0 0, L_00000000027d0310;  1 drivers
+L_00000000027d0358 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+v00000000027851e0_0 .net/2u *"_s62", 0 0, L_00000000027d0358;  1 drivers
+v0000000002785aa0_0 .net8 "outBus", 31 0, RS_000000000272dd88;  alias, 4 drivers
+L_0000000002786860 .cmp/eq 3, v0000000002727170_0, L_00000000027d0088;
+L_00000000027869a0 .functor MUXZ 32, o000000000272e3b8, L_0000000002716c60, L_0000000002786860, C4<>;
+L_0000000002785fa0 .cmp/eq 3, v0000000002727170_0, L_00000000027d00d0;
+L_0000000002786a40 .functor MUXZ 32, o000000000272dff8, L_00000000026e31a0, L_0000000002785fa0, C4<>;
+L_0000000002786400 .cmp/eq 3, v0000000002727170_0, L_00000000027d0118;
+L_0000000002786540 .functor MUXZ 32, o000000000272e0e8, L_00000000027199e0, L_0000000002786400, C4<>;
+L_0000000002786ae0 .cmp/eq 3, v0000000002727170_0, L_00000000027d0160;
+L_0000000002786b80 .part v00000000027268b0_0, 0, 28;
+L_0000000002784d80 .concat [ 4 28 0 0], L_00000000027d01a8, L_0000000002786b80;
+L_00000000027884b0 .functor MUXZ 32, o000000000272e238, L_0000000002784d80, L_0000000002786ae0, C4<>;
+L_00000000027871f0 .cmp/eq 32, RS_000000000272dd88, L_00000000027d01f0;
+L_0000000002786ed0 .functor MUXZ 1, L_00000000027d0280, L_00000000027d0238, L_00000000027871f0, C4<>;
+L_00000000027870b0 .part RS_000000000272dd88, 31, 1;
+L_00000000027873d0 .functor MUXZ 1, L_00000000027d0358, L_00000000027d0310, L_0000000002729c70, C4<>;
+    .scope S_0000000002714e70;
+T_0 ;
+    %vpi_call 2 52 "$monitor", "\011 BusA:%b \011\011 BusB:%b \011\011 OutBus:%b \011\011 Control:%b ", v00000000027268b0_0, v0000000002726630_0, v00000000027264f0_0, v0000000002727170_0 {0 0 0};
+    %end;
+    .thread T_0;
+    .scope S_0000000002714e70;
+T_1 ;
+    %delay 1, 0;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v00000000027268b0_0, 0, 32;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0000000002726630_0, 0, 32;
+    %pushi/vec4 3, 0, 3;
+    %store/vec4 v0000000002727170_0, 0, 3;
+    %delay 1, 0;
+    %delay 1, 0;
+    %delay 1, 0;
+    %pushi/vec4 6, 0, 32;
+    %store/vec4 v00000000027268b0_0, 0, 32;
+    %pushi/vec4 4, 0, 32;
+    %store/vec4 v0000000002726630_0, 0, 32;
+    %delay 1, 0;
+    %delay 1, 0;
+    %pushi/vec4 6, 0, 32;
+    %store/vec4 v00000000027268b0_0, 0, 32;
+    %pushi/vec4 9, 0, 32;
+    %store/vec4 v0000000002726630_0, 0, 32;
+    %pushi/vec4 4, 0, 3;
+    %store/vec4 v0000000002727170_0, 0, 3;
+    %delay 1, 0;
+    %delay 1, 0;
+    %pushi/vec4 15, 0, 32;
+    %store/vec4 v00000000027268b0_0, 0, 32;
+    %pushi/vec4 5, 0, 3;
+    %store/vec4 v0000000002727170_0, 0, 3;
+    %delay 1, 0;
+    %delay 1, 0;
+    %pushi/vec4 6, 0, 3;
+    %store/vec4 v0000000002727170_0, 0, 3;
+    %delay 1, 0;
+    %delay 1, 0;
+    %delay 1, 0;
+    %pushi/vec4 0, 0, 3;
+    %store/vec4 v0000000002727170_0, 0, 3;
+    %delay 1, 0;
+    %delay 1, 0;
+    %delay 1, 0;
+    %delay 1, 0;
+    %end;
+    .thread T_1;
+    .scope S_0000000002714cf0;
+T_2 ;
+    %vpi_call 2 34 "$dumpfile", "alu.vcd" {0 0 0};
+    %vpi_call 2 35 "$dumpvars", 32'sb00000000000000000000000000000001, S_00000000027168d0 {0 0 0};
+    %end;
+    .thread T_2;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "alu.v";

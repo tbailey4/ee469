@@ -1,0 +1,62 @@
+$date
+	Thu Feb 09 21:18:51 2017
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module testBench $end
+$scope module my_alu $end
+$var wire 32 ! BusA [31:0] $end
+$var wire 32 " BusB [31:0] $end
+$var wire 1 # Carry $end
+$var wire 3 $ Control [2:0] $end
+$var wire 1 % Overflow $end
+$var wire 32 & outBus [31:0] $end
+$var wire 1 ' Zero $end
+$var wire 1 ( Negative $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+x(
+x'
+bx &
+z%
+bx $
+z#
+bx "
+bx !
+$end
+#1
+0(
+1'
+b0 &
+b11 $
+b0 "
+b0 !
+#4
+0'
+b100 &
+b100 "
+b110 !
+#6
+b1111 &
+b100 $
+b1001 "
+#8
+b110 &
+b101 $
+b1111 !
+#10
+b11110000 &
+b110 $
+#13
+x(
+x'
+bz &
+b0 $
+#17
