@@ -7,13 +7,14 @@ module instruction_memory ( instructional_data,addr,addr, clk,write_enable);
 	reg [31:0] internalData [127:0];
 	reg [31:0] outData;
 	
-	//write data
+	//write data at neg edge
+	//should make it more stable for writing
 	always @(negedge clk) begin
 		if (write_enable) begin
 			internalData[addr]=instructional_data;
 		end
 	end
-	
+	//read data at pos edge
 	always @ (posedge clk) begin
 		if (!write_enable) begin
 			outData = internalData[addr];
