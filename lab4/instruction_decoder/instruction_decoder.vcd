@@ -1,0 +1,50 @@
+$date
+	Thu Mar 02 10:23:56 2017
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module instruction_decoder_tb $end
+$scope module DecoderTester $end
+$var wire 5 ! shamt [4:0] $end
+$var wire 11 " opcode [10:0] $end
+$var wire 2 # op [1:0] $end
+$var wire 5 $ Rt [4:0] $end
+$var wire 5 % Rn [4:0] $end
+$var wire 5 & Rm [4:0] $end
+$var wire 5 ' Rd [4:0] $end
+$var wire 8 ( DT_address [7:0] $end
+$var wire 18 ) COND_BR_address [17:0] $end
+$var wire 26 * BR_Address [25:0] $end
+$var reg 32 + instruction [31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+bx +
+bx *
+bx )
+bx (
+bx '
+bx &
+bx %
+bx $
+bx #
+bx "
+bx !
+$end
+#1
+b1000 '
+b110 %
+b100 !
+b1 &
+b10001011000 "
+b10001011000000010001000011001000 +
+#3
+b1010 '
+b10001011000000010001000011001010 +
+#5
