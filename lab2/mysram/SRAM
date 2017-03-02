@@ -1,0 +1,234 @@
+#! c:/iverilog-x64/bin/vvp
+:ivl_version "10.1 (stable)" "(v10_1_1)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0000000000857a50 .scope module, "SRAM" "SRAM" 2 5;
+ .timescale 0 0;
+    .port_info 0 /INOUT 32 "data"
+    .port_info 1 /INPUT 11 "address"
+    .port_info 2 /INPUT 1 "OE"
+    .port_info 3 /INPUT 1 "CS"
+    .port_info 4 /INPUT 1 "RW"
+    .port_info 5 /INPUT 1 "clk"
+o00000000008757e8 .functor BUFZ 1, C4<z>; HiZ drive
+v00000000008cc7d0_0 .net "CS", 0 0, o00000000008757e8;  0 drivers
+v00000000008cac50_0 .net "MemAddress1", 10 0, L_000000000086d150;  1 drivers
+v00000000008cbab0_0 .net "MemAddress2", 10 0, L_000000000086c600;  1 drivers
+RS_0000000000875458 .resolv tri, L_00000000008cb790, L_00000000008cacf0;
+v00000000008cc910_0 .net8 "MemData1", 15 0, RS_0000000000875458;  2 drivers
+RS_0000000000875488 .resolv tri, L_00000000008cb0b0, L_00000000008cb150;
+v00000000008cb010_0 .net8 "MemData2", 15 0, RS_0000000000875488;  2 drivers
+o00000000008754b8 .functor BUFZ 1, C4<z>; HiZ drive
+v00000000008cca50_0 .net "OE", 0 0, o00000000008754b8;  0 drivers
+o0000000000875818 .functor BUFZ 1, C4<z>; HiZ drive
+v00000000008cbdd0_0 .net "RW", 0 0, o0000000000875818;  0 drivers
+o0000000000875308 .functor BUFZ 11, C4<zzzzzzzzzzz>; HiZ drive
+v00000000008cc730_0 .net "address", 10 0, o0000000000875308;  0 drivers
+o00000000008752d8 .functor BUFZ 1, C4<z>; HiZ drive
+v00000000008cb330_0 .net "clk", 0 0, o00000000008752d8;  0 drivers
+v00000000008cb6f0_0 .net "data", 31 0, L_00000000008cbf10;  1 drivers
+S_000000000085e4d0 .scope module, "myMAR" "MAR" 2 15, 3 1 0, S_0000000000857a50;
+ .timescale 0 0;
+    .port_info 0 /INPUT 11 "inputAddress"
+    .port_info 1 /OUTPUT 11 "MemAddress1"
+    .port_info 2 /OUTPUT 11 "MemAddress2"
+    .port_info 3 /INPUT 1 "clk"
+L_000000000086d150 .functor BUFZ 11, v000000000086d690_0, C4<00000000000>, C4<00000000000>, C4<00000000000>;
+L_000000000086c600 .functor BUFZ 11, v000000000086d5f0_0, C4<00000000000>, C4<00000000000>, C4<00000000000>;
+v000000000086dd70_0 .net "MemAddress1", 10 0, L_000000000086d150;  alias, 1 drivers
+v000000000086d7d0_0 .net "MemAddress2", 10 0, L_000000000086c600;  alias, 1 drivers
+v000000000086d4b0_0 .net "clk", 0 0, o00000000008752d8;  alias, 0 drivers
+v000000000086e1d0_0 .net "inputAddress", 10 0, o0000000000875308;  alias, 0 drivers
+v000000000086d690_0 .var "internalOutput1", 10 0;
+v000000000086d5f0_0 .var "internalOutput2", 10 0;
+E_0000000000873b20 .event posedge, v000000000086d4b0_0;
+S_000000000085e650 .scope module, "myMDR" "MDR" 2 16, 4 1 0, S_0000000000857a50;
+ .timescale 0 0;
+    .port_info 0 /INOUT 32 "data"
+    .port_info 1 /INOUT 16 "MemData1"
+    .port_info 2 /INOUT 16 "MemData2"
+    .port_info 3 /INPUT 1 "OE"
+    .port_info 4 /INPUT 1 "clk"
+v000000000086e270_0 .net8 "MemData1", 15 0, RS_0000000000875458;  alias, 2 drivers
+v000000000086d550_0 .net8 "MemData2", 15 0, RS_0000000000875488;  alias, 2 drivers
+v000000000086d870_0 .net "OE", 0 0, o00000000008754b8;  alias, 0 drivers
+v000000000086d730_0 .net *"_s12", 0 0, L_00000000008cbe70;  1 drivers
+o0000000000875518 .functor BUFZ 16, C4<zzzzzzzzzzzzzzzz>; HiZ drive
+; Elide local net with no drivers, v000000000086d910_0 name=_s13
+v000000000086db90_0 .net *"_s15", 15 0, L_00000000008cba10;  1 drivers
+o0000000000875578 .functor BUFZ 16, C4<zzzzzzzzzzzzzzzz>; HiZ drive
+; Elide local net with no drivers, v000000000086d9b0_0 name=_s17
+o00000000008755a8 .functor BUFZ 16, C4<zzzzzzzzzzzzzzzz>; HiZ drive
+; Elide local net with no drivers, v000000000086da50_0 name=_s21
+v000000000086e130_0 .net *"_s3", 0 0, L_00000000008cc410;  1 drivers
+o0000000000875608 .functor BUFZ 16, C4<zzzzzzzzzzzzzzzz>; HiZ drive
+; Elide local net with no drivers, v000000000086daf0_0 name=_s4
+v000000000086dff0_0 .net *"_s6", 15 0, L_00000000008caed0;  1 drivers
+v000000000086dcd0_0 .net "clk", 0 0, o00000000008752d8;  alias, 0 drivers
+v000000000086e090_0 .net "data", 31 0, L_00000000008cbf10;  alias, 1 drivers
+v000000000086de10_0 .var "internal1", 15 0;
+v000000000086deb0_0 .var "internal2", 15 0;
+L_00000000008cc410 .reduce/nor o00000000008754b8;
+L_00000000008caed0 .functor MUXZ 16, o0000000000875608, v000000000086de10_0, L_00000000008cc410, C4<>;
+L_00000000008cbf10 .concat8 [ 16 16 0 0], L_00000000008cba10, L_00000000008caed0;
+L_00000000008cbe70 .reduce/nor o00000000008754b8;
+L_00000000008cba10 .functor MUXZ 16, o0000000000875518, v000000000086deb0_0, L_00000000008cbe70, C4<>;
+L_00000000008cb790 .functor MUXZ 16, o0000000000875578, v000000000086de10_0, o00000000008754b8, C4<>;
+L_00000000008cb0b0 .functor MUXZ 16, o00000000008755a8, v000000000086deb0_0, o00000000008754b8, C4<>;
+S_00000000008227b0 .scope module, "mySRAMmemory" "SRAMmemory" 2 17, 5 1 0, S_0000000000857a50;
+ .timescale 0 0;
+    .port_info 0 /INOUT 16 "MemData1"
+    .port_info 1 /INOUT 16 "MemData2"
+    .port_info 2 /INPUT 1 "clk"
+    .port_info 3 /INPUT 11 "MemAddress1"
+    .port_info 4 /INPUT 11 "MemAddress2"
+    .port_info 5 /INPUT 1 "CS"
+    .port_info 6 /INPUT 1 "OE"
+    .port_info 7 /INPUT 1 "RW"
+L_000000000086c430 .functor BUFZ 16, RS_0000000000875458, C4<0000000000000000>, C4<0000000000000000>, C4<0000000000000000>;
+L_000000000085e7d0 .functor BUFZ 16, RS_0000000000875488, C4<0000000000000000>, C4<0000000000000000>, C4<0000000000000000>;
+v000000000086df50_0 .net "CS", 0 0, o00000000008757e8;  alias, 0 drivers
+v00000000008cb8d0_0 .net "MemAddress1", 10 0, L_000000000086d150;  alias, 1 drivers
+v00000000008cb1f0_0 .net "MemAddress2", 10 0, L_000000000086c600;  alias, 1 drivers
+v00000000008cb3d0_0 .net8 "MemData1", 15 0, RS_0000000000875458;  alias, 2 drivers
+v00000000008cc190_0 .net8 "MemData2", 15 0, RS_0000000000875488;  alias, 2 drivers
+v00000000008cc690_0 .net "OE", 0 0, o00000000008754b8;  alias, 0 drivers
+v00000000008cc550_0 .net "RW", 0 0, o0000000000875818;  alias, 0 drivers
+v00000000008caf70_0 .net *"_s1", 0 0, L_00000000008cabb0;  1 drivers
+o0000000000875878 .functor BUFZ 16, C4<zzzzzzzzzzzzzzzz>; HiZ drive
+; Elide local net with no drivers, v00000000008cbb50_0 name=_s10
+o00000000008758a8 .functor BUFZ 16, C4<zzzzzzzzzzzzzzzz>; HiZ drive
+; Elide local net with no drivers, v00000000008cbbf0_0 name=_s2
+v00000000008cb470_0 .net *"_s9", 0 0, L_00000000008cad90;  1 drivers
+v00000000008cb650_0 .net "clk", 0 0, o00000000008752d8;  alias, 0 drivers
+v00000000008cc9b0_0 .net "data_in", 15 0, L_000000000086c430;  1 drivers
+v00000000008cc870_0 .net "data_in2", 15 0, L_000000000085e7d0;  1 drivers
+v00000000008cb510 .array "internal", 2047 0, 15 0;
+v00000000008cb5b0_0 .var/i "j", 31 0;
+v00000000008cbd30_0 .var "outData", 15 0;
+v00000000008cc230_0 .var "outData2", 15 0;
+v00000000008cc5f0_0 .var "prevRW", 0 0;
+L_00000000008cabb0 .reduce/nor o00000000008754b8;
+L_00000000008cacf0 .functor MUXZ 16, o00000000008758a8, v00000000008cbd30_0, L_00000000008cabb0, C4<>;
+L_00000000008cad90 .reduce/nor o00000000008754b8;
+L_00000000008cb150 .functor MUXZ 16, o0000000000875878, v00000000008cc230_0, L_00000000008cad90, C4<>;
+    .scope S_000000000085e4d0;
+T_0 ;
+    %wait E_0000000000873b20;
+    %load/vec4 v000000000086e1d0_0;
+    %assign/vec4 v000000000086d690_0, 0;
+    %load/vec4 v000000000086e1d0_0;
+    %nor/r;
+    %pad/u 11;
+    %assign/vec4 v000000000086d5f0_0, 0;
+    %jmp T_0;
+    .thread T_0;
+    .scope S_000000000085e650;
+T_1 ;
+    %wait E_0000000000873b20;
+    %load/vec4 v000000000086d870_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_1.0, 8;
+    %load/vec4 v000000000086e090_0;
+    %parti/s 16, 16, 6;
+    %store/vec4 v000000000086de10_0, 0, 16;
+    %load/vec4 v000000000086e090_0;
+    %parti/s 16, 0, 2;
+    %store/vec4 v000000000086deb0_0, 0, 16;
+    %jmp T_1.1;
+T_1.0 ;
+    %load/vec4 v000000000086e270_0;
+    %store/vec4 v000000000086de10_0, 0, 16;
+    %load/vec4 v000000000086d550_0;
+    %store/vec4 v000000000086deb0_0, 0, 16;
+T_1.1 ;
+    %jmp T_1;
+    .thread T_1;
+    .scope S_00000000008227b0;
+T_2 ;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v00000000008cb5b0_0, 0, 32;
+T_2.0 ;
+    %load/vec4 v00000000008cb5b0_0;
+    %cmpi/s 2048, 0, 32;
+    %jmp/0xz T_2.1, 5;
+    %pushi/vec4 0, 0, 16;
+    %ix/getv/s 4, v00000000008cb5b0_0;
+    %store/vec4a v00000000008cb510, 4, 0;
+    %load/vec4 v00000000008cb5b0_0;
+    %addi 1, 0, 32;
+    %store/vec4 v00000000008cb5b0_0, 0, 32;
+    %jmp T_2.0;
+T_2.1 ;
+    %pushi/vec4 0, 0, 16;
+    %store/vec4 v00000000008cbd30_0, 0, 16;
+    %pushi/vec4 0, 0, 16;
+    %store/vec4 v00000000008cc230_0, 0, 16;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v00000000008cc5f0_0, 0, 1;
+    %end;
+    .thread T_2;
+    .scope S_00000000008227b0;
+T_3 ;
+    %wait E_0000000000873b20;
+    %load/vec4 v000000000086df50_0;
+    %nor/r;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_3.0, 8;
+    %load/vec4 v00000000008cc690_0;
+    %nor/r;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_3.2, 8;
+    %load/vec4 v00000000008cc550_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_3.4, 8;
+    %load/vec4 v00000000008cb8d0_0;
+    %pad/u 13;
+    %ix/vec4 4;
+    %load/vec4a v00000000008cb510, 4;
+    %assign/vec4 v00000000008cbd30_0, 0;
+T_3.4 ;
+    %load/vec4 v00000000008cb1f0_0;
+    %pad/u 13;
+    %ix/vec4 4;
+    %load/vec4a v00000000008cb510, 4;
+    %assign/vec4 v00000000008cc230_0, 0;
+    %jmp T_3.3;
+T_3.2 ;
+    %load/vec4 v00000000008cc5f0_0;
+    %nor/r;
+    %load/vec4 v00000000008cc550_0;
+    %and;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_3.6, 8;
+    %load/vec4 v00000000008cc9b0_0;
+    %load/vec4 v00000000008cb8d0_0;
+    %pad/u 13;
+    %ix/vec4 3;
+    %ix/load 4, 0, 0; Constant delay
+    %assign/vec4/a/d v00000000008cb510, 0, 4;
+T_3.6 ;
+    %load/vec4 v00000000008cc870_0;
+    %load/vec4 v00000000008cb1f0_0;
+    %pad/u 13;
+    %ix/vec4 3;
+    %ix/load 4, 0, 0; Constant delay
+    %assign/vec4/a/d v00000000008cb510, 0, 4;
+T_3.3 ;
+    %load/vec4 v00000000008cc550_0;
+    %store/vec4 v00000000008cc5f0_0, 0, 1;
+T_3.0 ;
+    %jmp T_3;
+    .thread T_3;
+# The file index is used to find the file name in the following table.
+:file_names 6;
+    "N/A";
+    "<interactive>";
+    "SRAM.v";
+    "./MAR.v";
+    "./MDR.v";
+    "./SRAMmemory.v";
