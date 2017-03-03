@@ -1,4 +1,4 @@
-module control_signals (SRAM_CS, SRAM_write, read1_addr, read2_addr, write_addr, write_en,alu_function, branch, opcode,Rm,Rn,Rd,Rt,shamt,DT_address,op,BR_Address,COND_BR_address,clk, FLAGS);
+module control_signals (SRAM_CS, SRAM_write, writeToSRAM, read1_addr, read2_addr, write_addr, write_en,alu_function, branch, Bselect, constant, Dselect, opcode,Rm,Rn,Rd,Rt,shamt,DT_address,op,BR_Address,COND_BR_address,clk, FLAGS);
 	//decoder inputs
 	input [10:0] opcode;
 	input [4:0] Rm;
@@ -15,25 +15,29 @@ module control_signals (SRAM_CS, SRAM_write, read1_addr, read2_addr, write_addr,
 	input [3:0] FLAGS;
 	
 	//alu controls
-	output [2:0] alu_function;
+	output reg [2:0] alu_function;
 	
 	//reg file controls
-	output [4:0] read1_addr, read2_addr, write_addr;
-	output write_en;
+	output reg [4:0] read1_addr, read2_addr, write_addr;
+	output reg write_en;
 	
 	//sram controls
-	output SRAM_CS, SRAM_write;
+	output reg SRAM_CS, SRAM_write, writeToSRAM;
 	
 	//mux that controls Bus B of register data. 
 	//if 0 use register data for Bus B, if 1 use constant(shamt) for Bus B
-	output Bselect;
-	output reg constant;
+	output reg Bselect;
+	output reg [31:0] constant;
+	
+	//mux that controls the data out bus
+	//if 1 data memory = data out, if 0 alu = data out
+	output reg Dselect;
 	
 	//clk to control when to read and when to write
 	input clk;
 	
 	//for pc counter
-	output reg [5:0] branch;
+	output reg [6:0] branch;
 	
 	//Instruction Op Codes
 	parameter NOP = 1'b0;
@@ -57,14 +61,17 @@ module control_signals (SRAM_CS, SRAM_write, read1_addr, read2_addr, write_addr,
 			//Set up so Nothing is being writen to
 			//and alu is NOP
 			NOP: begin
+				writeToSRAM=1'b0;
 				write_en=1'b0;
 				branch=1'b0;
 				SRAM_CS=1'b0; 
 				SRAM_write=1'b0;
+				Dselect=1'b0;
 			end
 			//Addition
 			ADD://load data onto alu
 				if (clk) begin
+					writeToSRAM=1'b0;
 					Bselect=1'b0;
 					read1_addr=Rn;
 					read2_addr=Rm;
@@ -74,6 +81,7 @@ module control_signals (SRAM_CS, SRAM_write, read1_addr, read2_addr, write_addr,
 					branch=1'b0;
 					SRAM_CS=1'b0; 
 					SRAM_write=1'b0;
+					Dselect=1'b0;
 				end 
 				//write result to register
 				else if (!clk) begin
@@ -81,6 +89,7 @@ module control_signals (SRAM_CS, SRAM_write, read1_addr, read2_addr, write_addr,
 				end
 			AND://load data onto alu
 				if (clk) begin
+					writeToSRAM=1'b0;
 					Bselect=1'b0;
 					read1_addr=Rn;
 					read2_addr=Rm;
@@ -90,6 +99,7 @@ module control_signals (SRAM_CS, SRAM_write, read1_addr, read2_addr, write_addr,
 					branch=1'b0;
 					SRAM_CS=1'b0; 
 					SRAM_write=1'b0;
+					Dselect=1'b0;
 				end 
 				//write result to register
 				else if (!clk) begin
@@ -99,10 +109,11 @@ module control_signals (SRAM_CS, SRAM_write, read1_addr, read2_addr, write_addr,
 					//outputs new instruction address, must be added to pc in top module
 					branch=BR_Address;
 				end
-			BGT: //TODO not sure how to write yet
+			//BGT: //TODO not sure how to write yet
 			BR:read1_addr = Rt;
 			EOR://load data onto alu
 				if (clk) begin
+					writeToSRAM=1'b0;
 					Bselect=1'b0;
 					read1_addr=Rn;
 					read2_addr=Rm;
@@ -112,6 +123,7 @@ module control_signals (SRAM_CS, SRAM_write, read1_addr, read2_addr, write_addr,
 					branch=1'b0;
 					SRAM_CS=1'b0; 
 					SRAM_write=1'b0;
+					Dselect=1'b0;
 				end 
 				//write result to register
 				else if (!clk) begin
@@ -119,6 +131,7 @@ module control_signals (SRAM_CS, SRAM_write, read1_addr, read2_addr, write_addr,
 				end
 			LDURSW: //TODO need to know how to operate the sram
 				if (clk) begin
+					writeToSRAM=1'b0;
 					read1_addr=Rn;
 					Bselect=1'b1;
 					constant=DT_address;
@@ -126,21 +139,24 @@ module control_signals (SRAM_CS, SRAM_write, read1_addr, read2_addr, write_addr,
 					write_addr=Rt;
 					write_en=1'b0;
 					SRAM_CS=1'b1; 
+					Dselect=1'b1;
 				end
 				else if (!clk) begin
 					write_en=1'b1;
 				end
 			LSL://load data onto alu
 				if (clk) begin
+					writeToSRAM=1'b0;
 					Bselect=1'b1;
 					read1_addr=Rn;
 					write_addr=Rd;
 					constant=shamt;
 					write_en=1'b0;
-					alu_function=3'110;
+					alu_function=3'b110;
 					branch=1'b0;
 					SRAM_CS=1'b0; 
 					SRAM_write=1'b0;
+					Dselect=1'b0;
 				end 
 				//write result to register
 				else if (!clk) begin
@@ -148,6 +164,7 @@ module control_signals (SRAM_CS, SRAM_write, read1_addr, read2_addr, write_addr,
 				end
 			OOR://load data onto alu
 				if (clk) begin
+					writeToSRAM=1'b0;
 					Bselect=1'b0;
 					read1_addr=Rn;
 					read2_addr=Rm;
@@ -157,6 +174,7 @@ module control_signals (SRAM_CS, SRAM_write, read1_addr, read2_addr, write_addr,
 					branch=1'b0;
 					SRAM_CS=1'b0; 
 					SRAM_write=1'b0;
+					Dselect=1'b0;
 				end 
 				//write result to register
 				else if (!clk) begin
@@ -175,7 +193,8 @@ module control_signals (SRAM_CS, SRAM_write, read1_addr, read2_addr, write_addr,
 				Bselect=1'b1;
 				SRAM_CS=1'b1; 
 				SRAM_write=1'b0;
-				
+				Dselect=1'b0;
+				writeToSRAM=1'b1;
 				
 			end
 				//write data
@@ -184,6 +203,7 @@ module control_signals (SRAM_CS, SRAM_write, read1_addr, read2_addr, write_addr,
 			end
 			SUB://load data onto alu
 				if (clk) begin
+					writeToSRAM=1'b0;
 					Bselect=1'b0;
 					read1_addr=Rn;
 					read2_addr=Rm;
@@ -193,6 +213,7 @@ module control_signals (SRAM_CS, SRAM_write, read1_addr, read2_addr, write_addr,
 					branch=1'b0;
 					SRAM_CS=1'b0; 
 					SRAM_write=1'b0;
+					Dselect=1'b0;
 				end 
 				//write result to register
 				else if (!clk) begin

@@ -5,10 +5,10 @@ module instruction_memory_tb();
 	wire [6:0] addr;
 	wire clk, write_enable;
 	//input [31:0] write_data;
-	wire [31:0] instructional_data;
+	wire [31:0] instruction;
 
-	instruction_memory_Tester inMemTester (instructional_data,addr,addr, clk,write_enable);
-	instruction_memory memory (instructional_data,addr,addr, clk,write_enable);
+	instruction_memory_Tester inMemTester (instruction,addr, clk,write_enable);
+	instruction_memory memory (instruction,addr, clk,write_enable);
 	
 	initial begin
 		$dumpfile ("instruction_memory.vcd");
@@ -18,20 +18,20 @@ module instruction_memory_tb();
 
 endmodule
 
-module instruction_memory_Tester (instructional_data,addr,addr, clk,write_enable);
+module instruction_memory_Tester (instruction,addr, clk,write_enable);
 
 	output reg [6:0] addr;
 	output reg clk, write_enable;
 	//input [31:0] write_data;
-	inout wire [31:0] instructional_data;
+	inout wire [31:0] instruction;
 	
 	reg [31:0] data2;
-	assign instructional_data= (write_enable) ? data2 : 32'bz;
+	assign instruction= (write_enable) ? data2 : 32'bz;
 	
 	parameter stimDelay=1;
 	
 	initial begin
-		$monitor ("addr:%d data:%h WE:%b clk:%b",addr, instructional_data,write_enable,clk);
+		$monitor ("addr:%d data:%h WE:%b clk:%b",addr, instruction,write_enable,clk);
 	end
 	
 	

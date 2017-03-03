@@ -6,152 +6,150 @@
 :vpi_module "vhdl_sys";
 :vpi_module "v2005_math";
 :vpi_module "va_math";
-S_00000000026551f0 .scope module, "instruction_memory_tb" "instruction_memory_tb" 2 3;
+S_00000000027250a0 .scope module, "instruction_memory_tb" "instruction_memory_tb" 2 3;
  .timescale 0 0;
-v00000000026a5fd0_0 .net "addr", 6 0, v00000000026505c0_0;  1 drivers
-v00000000026a6750_0 .net "clk", 0 0, v00000000001cea70_0;  1 drivers
-RS_0000000002655778 .resolv tri, L_00000000026a6110, L_00000000026a62f0;
-v00000000026a6070_0 .net8 "instructional_data", 31 0, RS_0000000002655778;  2 drivers
-v00000000026a6c50_0 .net "write_enable", 0 0, v00000000026128c0_0;  1 drivers
-S_00000000001ce8f0 .scope module, "inMemTester" "instruction_memory_Tester" 2 10, 2 21 0, S_00000000026551f0;
+v0000000002776a60_0 .net "addr", 6 0, v000000000271f120_0;  1 drivers
+v00000000027769c0_0 .net "clk", 0 0, v0000000002775e30_0;  1 drivers
+RS_0000000002725628 .resolv tri, L_00000000027761a0, L_0000000002776560;
+v0000000002776c40_0 .net8 "instruction", 31 0, RS_0000000002725628;  2 drivers
+v0000000002776060_0 .net "write_enable", 0 0, v00000000001feb50_0;  1 drivers
+S_00000000001fe890 .scope module, "inMemTester" "instruction_memory_Tester" 2 10, 2 21 0, S_00000000027250a0;
  .timescale 0 0;
-    .port_info 0 /INOUT 32 "instructional_data"
+    .port_info 0 /INOUT 32 "instruction"
     .port_info 1 /OUTPUT 7 "addr"
-    .port_info 2 /OUTPUT 7 "addr"
-    .port_info 3 /OUTPUT 1 "clk"
-    .port_info 4 /OUTPUT 1 "write_enable"
-P_000000000264e4e0 .param/l "stimDelay" 0 2 31, +C4<00000000000000000000000000000001>;
-o0000000002655688 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
-; Elide local net with no drivers, v00000000026518c0_0 name=_s0
-v00000000026505c0_0 .var "addr", 6 0;
-v00000000001cea70_0 .var "clk", 0 0;
-v00000000001ceb10_0 .var "data2", 31 0;
-v00000000001cebb0_0 .var/i "i", 31 0;
-v00000000001cec50_0 .net8 "instructional_data", 31 0, RS_0000000002655778;  alias, 2 drivers
-v00000000026128c0_0 .var "write_enable", 0 0;
-L_00000000026a6110 .functor MUXZ 32, o0000000002655688, v00000000001ceb10_0, v00000000026128c0_0, C4<>;
-S_0000000002612960 .scope module, "memory" "instruction_memory" 2 11, 3 1 0, S_00000000026551f0;
+    .port_info 2 /OUTPUT 1 "clk"
+    .port_info 3 /OUTPUT 1 "write_enable"
+P_0000000002720db0 .param/l "stimDelay" 0 2 31, +C4<00000000000000000000000000000001>;
+o0000000002725538 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+; Elide local net with no drivers, v00000000027217b0_0 name=_s0
+v000000000271f120_0 .var "addr", 6 0;
+v0000000002775e30_0 .var "clk", 0 0;
+v0000000002775ed0_0 .var "data2", 31 0;
+v00000000001fea10_0 .var/i "i", 31 0;
+v00000000001feab0_0 .net8 "instruction", 31 0, RS_0000000002725628;  alias, 2 drivers
+v00000000001feb50_0 .var "write_enable", 0 0;
+L_00000000027761a0 .functor MUXZ 32, o0000000002725538, v0000000002775ed0_0, v00000000001feb50_0, C4<>;
+S_00000000026e28c0 .scope module, "memory" "instruction_memory" 2 11, 3 1 0, S_00000000027250a0;
  .timescale 0 0;
-    .port_info 0 /INOUT 32 "instructional_data"
+    .port_info 0 /INOUT 32 "instruction"
     .port_info 1 /INPUT 7 "addr"
-    .port_info 2 /INPUT 7 "addr"
-    .port_info 3 /INPUT 1 "clk"
-    .port_info 4 /INPUT 1 "write_enable"
-v0000000002612ae0_0 .net *"_s1", 0 0, L_00000000026a6d90;  1 drivers
-o00000000026558f8 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
-; Elide local net with no drivers, v0000000002612b80_0 name=_s2
-v0000000002612c20_0 .net "addr", 6 0, v00000000026505c0_0;  alias, 1 drivers
-v00000000026a66b0_0 .net "clk", 0 0, v00000000001cea70_0;  alias, 1 drivers
-v00000000026a69d0_0 .net8 "instructional_data", 31 0, RS_0000000002655778;  alias, 2 drivers
-v00000000026a6ed0 .array "internalData", 0 127, 31 0;
-v00000000026a6a70_0 .var "outData", 31 0;
-v00000000026a6b10_0 .net "write_enable", 0 0, v00000000026128c0_0;  alias, 1 drivers
-E_000000000264e620 .event posedge, v00000000001cea70_0;
-E_000000000264ea60 .event negedge, v00000000001cea70_0;
-L_00000000026a6d90 .reduce/nor v00000000026128c0_0;
-L_00000000026a62f0 .functor MUXZ 32, o00000000026558f8, v00000000026a6a70_0, L_00000000026a6d90, C4<>;
-    .scope S_00000000001ce8f0;
+    .port_info 2 /INPUT 1 "clk"
+    .port_info 3 /INPUT 1 "write_enable"
+v00000000001febf0_0 .net *"_s1", 0 0, L_0000000002776b00;  1 drivers
+o0000000002725778 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+; Elide local net with no drivers, v00000000026e2a40_0 name=_s2
+v00000000026e2ae0_0 .net "addr", 6 0, v000000000271f120_0;  alias, 1 drivers
+v0000000002776ba0_0 .net "clk", 0 0, v0000000002775e30_0;  alias, 1 drivers
+v0000000002776600_0 .net8 "instruction", 31 0, RS_0000000002725628;  alias, 2 drivers
+v0000000002775fc0 .array "internalData", 0 127, 31 0;
+v00000000027764c0_0 .var "outData", 31 0;
+v0000000002776ce0_0 .net "write_enable", 0 0, v00000000001feb50_0;  alias, 1 drivers
+E_0000000002720f70 .event posedge, v0000000002775e30_0;
+E_0000000002720670 .event negedge, v0000000002775e30_0;
+L_0000000002776b00 .reduce/nor v00000000001feb50_0;
+L_0000000002776560 .functor MUXZ 32, o0000000002725778, v00000000027764c0_0, L_0000000002776b00, C4<>;
+    .scope S_00000000001fe890;
 T_0 ;
-    %vpi_call 2 34 "$monitor", "addr:%d data:%h WE:%b clk:%b", v00000000026505c0_0, v00000000001cec50_0, v00000000026128c0_0, v00000000001cea70_0 {0 0 0};
+    %vpi_call 2 34 "$monitor", "addr:%d data:%h WE:%b clk:%b", v000000000271f120_0, v00000000001feab0_0, v00000000001feb50_0, v0000000002775e30_0 {0 0 0};
     %end;
     .thread T_0;
-    .scope S_00000000001ce8f0;
+    .scope S_00000000001fe890;
 T_1 ;
     %delay 1, 0;
     %pushi/vec4 1, 0, 1;
-    %store/vec4 v00000000001cea70_0, 0, 1;
+    %store/vec4 v0000000002775e30_0, 0, 1;
     %delay 1, 0;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v00000000001cea70_0, 0, 1;
+    %store/vec4 v0000000002775e30_0, 0, 1;
     %pushi/vec4 0, 0, 32;
-    %store/vec4 v00000000001cebb0_0, 0, 32;
+    %store/vec4 v00000000001fea10_0, 0, 32;
 T_1.0 ;
-    %load/vec4 v00000000001cebb0_0;
+    %load/vec4 v00000000001fea10_0;
     %cmpi/s 128, 0, 32;
     %jmp/0xz T_1.1, 5;
     %delay 1, 0;
     %pushi/vec4 1, 0, 1;
-    %store/vec4 v00000000001cea70_0, 0, 1;
-    %load/vec4 v00000000001cebb0_0;
+    %store/vec4 v0000000002775e30_0, 0, 1;
+    %load/vec4 v00000000001fea10_0;
     %pad/s 7;
-    %store/vec4 v00000000026505c0_0, 0, 7;
+    %store/vec4 v000000000271f120_0, 0, 7;
     %pushi/vec4 128, 0, 32;
-    %load/vec4 v00000000001cebb0_0;
+    %load/vec4 v00000000001fea10_0;
     %sub;
-    %store/vec4 v00000000001ceb10_0, 0, 32;
+    %store/vec4 v0000000002775ed0_0, 0, 32;
     %pushi/vec4 1, 0, 1;
-    %store/vec4 v00000000026128c0_0, 0, 1;
+    %store/vec4 v00000000001feb50_0, 0, 1;
     %delay 1, 0;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v00000000001cea70_0, 0, 1;
-    %load/vec4 v00000000001cebb0_0;
+    %store/vec4 v0000000002775e30_0, 0, 1;
+    %load/vec4 v00000000001fea10_0;
     %addi 1, 0, 32;
-    %store/vec4 v00000000001cebb0_0, 0, 32;
+    %store/vec4 v00000000001fea10_0, 0, 32;
     %jmp T_1.0;
 T_1.1 ;
     %delay 1, 0;
     %pushi/vec4 1, 0, 1;
-    %store/vec4 v00000000001cea70_0, 0, 1;
+    %store/vec4 v0000000002775e30_0, 0, 1;
     %delay 1, 0;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v00000000001cea70_0, 0, 1;
+    %store/vec4 v0000000002775e30_0, 0, 1;
     %pushi/vec4 0, 0, 32;
-    %store/vec4 v00000000001cebb0_0, 0, 32;
+    %store/vec4 v00000000001fea10_0, 0, 32;
 T_1.2 ;
-    %load/vec4 v00000000001cebb0_0;
+    %load/vec4 v00000000001fea10_0;
     %cmpi/s 128, 0, 32;
     %jmp/0xz T_1.3, 5;
     %delay 1, 0;
     %pushi/vec4 1, 0, 1;
-    %store/vec4 v00000000001cea70_0, 0, 1;
-    %load/vec4 v00000000001cebb0_0;
+    %store/vec4 v0000000002775e30_0, 0, 1;
+    %load/vec4 v00000000001fea10_0;
     %pad/s 7;
-    %store/vec4 v00000000026505c0_0, 0, 7;
+    %store/vec4 v000000000271f120_0, 0, 7;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v00000000026128c0_0, 0, 1;
+    %store/vec4 v00000000001feb50_0, 0, 1;
     %delay 1, 0;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v00000000001cea70_0, 0, 1;
-    %load/vec4 v00000000001cebb0_0;
+    %store/vec4 v0000000002775e30_0, 0, 1;
+    %load/vec4 v00000000001fea10_0;
     %addi 1, 0, 32;
-    %store/vec4 v00000000001cebb0_0, 0, 32;
+    %store/vec4 v00000000001fea10_0, 0, 32;
     %jmp T_1.2;
 T_1.3 ;
     %end;
     .thread T_1;
-    .scope S_0000000002612960;
+    .scope S_00000000026e28c0;
 T_2 ;
-    %wait E_000000000264ea60;
-    %load/vec4 v00000000026a6b10_0;
+    %wait E_0000000002720670;
+    %load/vec4 v0000000002776ce0_0;
     %flag_set/vec4 8;
     %jmp/0xz  T_2.0, 8;
-    %load/vec4 v00000000026a69d0_0;
-    %load/vec4 v0000000002612c20_0;
+    %load/vec4 v0000000002776600_0;
+    %load/vec4 v00000000026e2ae0_0;
     %pad/u 9;
     %ix/vec4 4;
-    %store/vec4a v00000000026a6ed0, 4, 0;
+    %store/vec4a v0000000002775fc0, 4, 0;
 T_2.0 ;
     %jmp T_2;
     .thread T_2;
-    .scope S_0000000002612960;
+    .scope S_00000000026e28c0;
 T_3 ;
-    %wait E_000000000264e620;
-    %load/vec4 v00000000026a6b10_0;
+    %wait E_0000000002720f70;
+    %load/vec4 v0000000002776ce0_0;
     %nor/r;
     %flag_set/vec4 8;
     %jmp/0xz  T_3.0, 8;
-    %load/vec4 v0000000002612c20_0;
+    %load/vec4 v00000000026e2ae0_0;
     %pad/u 9;
     %ix/vec4 4;
-    %load/vec4a v00000000026a6ed0, 4;
-    %store/vec4 v00000000026a6a70_0, 0, 32;
+    %load/vec4a v0000000002775fc0, 4;
+    %store/vec4 v00000000027764c0_0, 0, 32;
 T_3.0 ;
     %jmp T_3;
     .thread T_3;
-    .scope S_00000000026551f0;
+    .scope S_00000000027250a0;
 T_4 ;
     %vpi_call 2 14 "$dumpfile", "instruction_memory.vcd" {0 0 0};
-    %vpi_call 2 15 "$dumpvars", 32'sb00000000000000000000000000000001, S_0000000002612960 {0 0 0};
+    %vpi_call 2 15 "$dumpvars", 32'sb00000000000000000000000000000001, S_00000000026e28c0 {0 0 0};
     %end;
     .thread T_4;
 # The file index is used to find the file name in the following table.
