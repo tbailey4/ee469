@@ -1,0 +1,7 @@
+
+State Machine - |DE1_SoC|integration:pc|SRAM:mySram|SRAMmemory:mySRAMmemory|counter
+Name counter~3 counter~2 
+counter.00 0 0 
+counter.01 0 1 
+counter.10 1 0 
+counter.11 1 1 
