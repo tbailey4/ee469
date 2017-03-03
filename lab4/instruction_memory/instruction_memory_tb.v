@@ -39,13 +39,13 @@ module instruction_memory_Tester (instruction,addr, clk,write_enable);
 	initial begin
 		#stimDelay; clk=1'b1;
 		#stimDelay; clk=1'b0;
-		for (i=0;i<128;i=i+1) begin
+		/*for (i=0;i<128;i=i+1) begin
 			
 			
 			
 			#stimDelay; clk=1'b1;addr=i;data2=128-i;write_enable=1'b1;
 			#stimDelay; clk=1'b0;
-		end
+		end*/
 		#stimDelay; clk=1'b1;
 		#stimDelay; clk=1'b0;
 		for (i=0;i<128;i=i+1) begin

@@ -1,10 +1,10 @@
-//`include "control_signals.v"
-//`include "instruction_decoder.v"
-//`include "instruction_memory.v"
+`include "control_signals.v"
+`include "instruction_decoder.v"
+`include "instruction_memory.v"
 
 module control_top (alu_function, //alu controls
 		read1_addr, read2_addr, write_addr, write_en, //reg file controls
-		SRAM_CS, SRAM_write, writeToSRAM,	//sram controls
+		SRAM_CS, SRAM_write, writeToSRAM, OE,	//sram controls
 		Bselect, constant, 		//b mux select and input
 		Dselect,				 //d mux select
 		clk, V,C,N,Z, rst,		 //inputs
@@ -22,7 +22,7 @@ module control_top (alu_function, //alu controls
 	output write_en;
 	
 	//sram controls
-	output SRAM_CS, SRAM_write,writeToSRAM;
+	output SRAM_CS, SRAM_write,writeToSRAM, OE;
 	
 	//mux that controls Bus B of register data. 
 	//if 0 use register data for Bus B, if 1 use constant(shamt) for Bus B
@@ -64,11 +64,17 @@ module control_top (alu_function, //alu controls
 	wire [6:0] addr;
 	
 	
-	control_signals outputSignals (SRAM_CS, SRAM_write, writeToSRAM, read1_addr, read2_addr, write_addr, write_en,alu_function, ALUImm, branch, Bselect, constant, Dselect, opcode,Rm,Rn,Rd,Rt,shamt,DT_address,op,BR_Address,COND_BR_address,clk, FLAGS);
+	
+	control_signals outputSignals (SRAM_CS, SRAM_write, OE, read1_addr, read2_addr, write_addr, write_en,alu_function, ALUImm, branch, Bselect, constant, Dselect, opcode,Rm,Rn,Rd,Rt,shamt,DT_address,op,BR_Address,COND_BR_address,clk, FLAGS);
 	instruction_decoder decoder (instruction, opcode, Rm, Rn, Rd, Rt, shamt, DT_address, op,BR_Address, COND_BR_address, ALUImm);
 	instruction_memory instrutMemory ( instruction,addr, clk,write_enable);
 	
 	reg [6:0] pcounter,nextPcounter; //program counter used as address for instruction memory
+	
+	initial begin
+		pcounter=1'b0;
+		nextPcounter=1'b0;
+	end
 	
 	//always block controls next pcounter
 	always @ (*) begin

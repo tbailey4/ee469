@@ -26,62 +26,42 @@ module control_signals_tb ();
 	wire write_en;
 	
 	//sram controls
-	wire SRAM_CS, SRAM_write;
+	wire SRAM_CS, SRAM_write,OE;
 	
 	//mux that controls Bus B of register data. 
 	//if 0 use register data for Bus B, if 1 use constant(shamt) for Bus B
-	wire Bselect;
-	wire constant;
+	wire Bselect, Dselect;
+	wire [31:0] constant;
 	
 	//clk to control when to read and when to write
 	wire clk;
 	
 	//for pc counter
-	wire [5:0] branch;
+	wire [6:0] branch;
 	
-	control_signals mycontrol (SRAM_CS, SRAM_write, read1_addr, read2_addr, write_addr, write_en,alu_function, branch, Bselect, constant, Dselect, opcode,Rm,Rn,Rd,Rt,shamt,DT_address,op,BR_Address,COND_BR_address,clk, FLAGS);
-	instruction_decoder mydecoder (instruction, opcode, Rm, Rn, Rd, Rt, shamt, DT_address, op,BR_Address, COND_BR_address);
+	wire [10:0] ALUImm;
 	
-	control_signals_TESTER controlTester(SRAM_CS, SRAM_write, read1_addr, read2_addr, write_addr, write_en,alu_function, branch, instruction,FLAGS, clk);
+	control_signals mycontrol (SRAM_CS, SRAM_write, OE, read1_addr, read2_addr, write_addr, write_en,alu_function, ALUImm, branch, Bselect, constant, Dselect, opcode,Rm,Rn,Rd,Rt,shamt,DT_address,op,BR_Address,COND_BR_address,clk, FLAGS);
+	instruction_decoder mydecoder (instruction, opcode, Rm, Rn, Rd, Rt, shamt, DT_address, op,BR_Address, COND_BR_address, ALUImm);
+	
+	control_signals_TESTER controlTester(instruction, clk);
 	
 	initial begin
 		$dumpfile ("control_siganls.vcd");
-		$dumpvars (0,controlTester);
+		$dumpvars (4,controlTester);
 	end
 
 endmodule
 
-module control_signals_TESTER (SRAM_CS, SRAM_write, read1_addr, read2_addr, write_addr, write_en,alu_function, branch, instruction,FLAGS, clk);
+module control_signals_TESTER (instruction, clk);
 
 	output reg [31:0] instruction;
 	
 	
-	//alu flags
-	output reg [3:0] FLAGS;
-	
-	//alu controls
-	input wire [2:0] alu_function;
-	
-	//reg file controls
-	input wire [4:0] read1_addr, read2_addr, write_addr;
-	input wire write_en;
-	
-	//sram controls
-	input wire SRAM_CS, SRAM_write;
-	
-	//mux that controls Bus B of register data. 
-	//if 0 use register data for Bus B, if 1 use constant(shamt) for Bus B
-	input wire Bselect;
-	input wire constant;
-	
-	//clk to control when to read and when to write
 	output reg clk;
 	
-	//for pc counter
-	input wire [5:0] branch;
 	
-	input wire Dselect;
-	
+	integer i=0;
 	parameter stimDelay=1;
 	
 	//NEED TEST CODE!!!!
@@ -89,6 +69,42 @@ module control_signals_TESTER (SRAM_CS, SRAM_write, read1_addr, read2_addr, writ
 		#stimDelay; clk=1;
 		#stimDelay; clk=0;
 		#stimDelay; clk=1;instruction=32'b10001011000000010001000011001010;
+		#stimDelay; clk=0;
+		#stimDelay; clk=1;instruction=32'b10010001000000000001110000001001;i=i+1;//addi
+		#stimDelay; clk=0;
+		#stimDelay; clk=1;instruction=32'b11111000000000000000001001101001;i=i+1;//stur
+		#stimDelay; clk=0;
+		#stimDelay; clk=1;instruction=32'b11111000010000000000001001101001;i=i+1;//ldur
+		#stimDelay; clk=0;
+		#stimDelay; clk=1;instruction=32'b11001011000010100000000100101011;i=i+1;//sub
+		#stimDelay; clk=0;
+		#stimDelay; clk=1;instruction=32'b11101011000011000000000101100000;i=i+1;//subs
+		#stimDelay; clk=0;
+		#stimDelay; clk=1;instruction=32'b01010100000000000000001010000000;i=i+1;//B.GT
+		#stimDelay; clk=0;
+		#stimDelay; clk=1;instruction=32'b11010011011000000001010100101001;i=i+1;//LSL
+		#stimDelay; clk=0;
+		#stimDelay; clk=1;instruction=32'b00010100000000000000000000011010;i=i+1;//b
+		#stimDelay; clk=0;
+		#stimDelay; clk=1;
+		#stimDelay; clk=0;
+		#stimDelay; clk=1;
+		#stimDelay; clk=0;
+		#stimDelay; clk=1;
+		#stimDelay; clk=0;
+		#stimDelay; clk=1;
+		#stimDelay; clk=0;
+		#stimDelay; clk=1;
+		#stimDelay; clk=0;
+		#stimDelay; clk=1;
+		#stimDelay; clk=0;
+		#stimDelay; clk=1;
+		#stimDelay; clk=0;
+		#stimDelay; clk=1;
+		#stimDelay; clk=0;
+		#stimDelay; clk=1;
+		#stimDelay; clk=0;
+		#stimDelay; clk=1;
 		#stimDelay; clk=0;
 		#stimDelay; clk=1;
 		#stimDelay; clk=0;

@@ -1,4 +1,4 @@
-`include "group_block.v"
+//`include "group_block.v"
 
 // 16-bit, radix-4 CLA adder
 // If sub = 1, sum = a - b

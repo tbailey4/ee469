@@ -1,6 +1,6 @@
-`include "barrelShifter.v"
-`include "CLA_adder.v"
-`include "signExtender.v"
+//`include "barrelShifter.v"
+//`include "CLA_adder.v"
+//`include "signExtender.v"
 
 module alu (outBus,Zero,Overflow,Carry,Negative,BusA,BusB,Control);
 
@@ -46,7 +46,7 @@ module alu (outBus,Zero,Overflow,Carry,Negative,BusA,BusB,Control);
 endmodule
 
 //TESTING
-
+/*
 module testBench;
 	wire [31:0] outBus;
 	wire Zero,Overflow,Carry,Negative;
@@ -114,3 +114,4 @@ module Tester (outBus,Zero,Overflow,Carry,Negative,BusA,BusB,Control);
 		end
 	
 endmodule
+*/

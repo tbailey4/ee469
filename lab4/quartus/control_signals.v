@@ -1,4 +1,4 @@
-module control_signals (SRAM_CS, SRAM_write, writeToSRAM, read1_addr, read2_addr, write_addr, write_en,alu_function, ALUImm, branch, Bselect, constant, Dselect, opcode,Rm,Rn,Rd,Rt,shamt,DT_address,op,BR_Address,COND_BR_address,clk, FLAGS);
+module control_signals (SRAM_CS, SRAM_write, OE, read1_addr, read2_addr, write_addr, write_en,alu_function, ALUImm, branch, Bselect, constant, Dselect, opcode,Rm,Rn,Rd,Rt,shamt,DT_address,op,BR_Address,COND_BR_address,clk, FLAGS);
 	//decoder inputs
 	input [10:0] opcode;
 	input [4:0] Rm;
@@ -23,7 +23,7 @@ module control_signals (SRAM_CS, SRAM_write, writeToSRAM, read1_addr, read2_addr
 	output reg write_en;
 	
 	//sram controls
-	output reg SRAM_CS, SRAM_write, writeToSRAM;
+	output reg SRAM_CS, SRAM_write, OE;
 	
 	//mux that controls Bus B of register data. 
 	//if 0 use register data for Bus B, if 1 use constant(shamt) for Bus B
@@ -66,7 +66,7 @@ module control_signals (SRAM_CS, SRAM_write, writeToSRAM, read1_addr, read2_addr
 			//Set up so Nothing is being writen to
 			//and alu is NOP
 			NOP: begin
-				writeToSRAM=1'b0;
+				OE=1'b1;
 				write_en=1'b0;
 				branch=1'b0;
 				SRAM_CS=1'b0; 
@@ -76,7 +76,7 @@ module control_signals (SRAM_CS, SRAM_write, writeToSRAM, read1_addr, read2_addr
 			//Addition
 			ADD://load data onto alu
 				if (clk) begin
-					writeToSRAM=1'b0;
+					OE=1'b1;
 					Bselect=1'b0;
 					read1_addr=Rn;
 					read2_addr=Rm;
@@ -94,7 +94,7 @@ module control_signals (SRAM_CS, SRAM_write, writeToSRAM, read1_addr, read2_addr
 				end
 			ADDI://load data onto alu
 				if (clk) begin
-					writeToSRAM=1'b0;
+					OE=1'b1;
 					Bselect=1'b1;
 					constant=ALUImm;
 					read1_addr=Rn;
@@ -113,7 +113,7 @@ module control_signals (SRAM_CS, SRAM_write, writeToSRAM, read1_addr, read2_addr
 				end
 			AND://load data onto alu
 				if (clk) begin
-					writeToSRAM=1'b0;
+					OE=1'b1;
 					Bselect=1'b0;
 					read1_addr=Rn;
 					read2_addr=Rm;
@@ -137,7 +137,7 @@ module control_signals (SRAM_CS, SRAM_write, writeToSRAM, read1_addr, read2_addr
 			BR:read1_addr = Rt;
 			EOR://load data onto alu
 				if (clk) begin
-					writeToSRAM=1'b0;
+					OE=1'b1;
 					Bselect=1'b0;
 					read1_addr=Rn;
 					read2_addr=Rm;
@@ -155,7 +155,7 @@ module control_signals (SRAM_CS, SRAM_write, writeToSRAM, read1_addr, read2_addr
 				end
 			LDUR: 
 				if (clk) begin
-					writeToSRAM=1'b0;
+					OE=1'b1;
 					read1_addr=Rn;
 					Bselect=1'b1;
 					constant=DT_address;
@@ -170,7 +170,7 @@ module control_signals (SRAM_CS, SRAM_write, writeToSRAM, read1_addr, read2_addr
 				end
 			LDURSW: //TODO need to know how to operate the sram
 				if (clk) begin
-					writeToSRAM=1'b0;
+					OE=1'b1;
 					read1_addr=Rn;
 					Bselect=1'b1;
 					constant=DT_address;
@@ -185,7 +185,7 @@ module control_signals (SRAM_CS, SRAM_write, writeToSRAM, read1_addr, read2_addr
 				end
 			LSL://load data onto alu
 				if (clk) begin
-					writeToSRAM=1'b0;
+					OE=1'b1;
 					Bselect=1'b1;
 					read1_addr=Rn;
 					write_addr=Rd;
@@ -203,7 +203,7 @@ module control_signals (SRAM_CS, SRAM_write, writeToSRAM, read1_addr, read2_addr
 				end
 			OOR://load data onto alu
 				if (clk) begin
-					writeToSRAM=1'b0;
+					OE=1'b1;
 					Bselect=1'b0;
 					read1_addr=Rn;
 					read2_addr=Rm;
@@ -233,7 +233,8 @@ module control_signals (SRAM_CS, SRAM_write, writeToSRAM, read1_addr, read2_addr
 				SRAM_CS=1'b1; 
 				SRAM_write=1'b0;
 				Dselect=1'b0;
-				writeToSRAM=1'b1;
+				OE=1'b0;
+				SRAM_write=1'b0;
 				
 				end
 				//write data
@@ -254,7 +255,8 @@ module control_signals (SRAM_CS, SRAM_write, writeToSRAM, read1_addr, read2_addr
 				SRAM_CS=1'b1; 
 				SRAM_write=1'b0;
 				Dselect=1'b0;
-				writeToSRAM=1'b1;
+				OE=1'b0;
+				SRAM_write=1'b0;
 				
 			end
 				//write data
@@ -263,7 +265,7 @@ module control_signals (SRAM_CS, SRAM_write, writeToSRAM, read1_addr, read2_addr
 			end
 			SUB://load data onto alu
 				if (clk) begin
-					writeToSRAM=1'b0;
+					OE=1'b1;
 					Bselect=1'b0;
 					read1_addr=Rn;
 					read2_addr=Rm;
@@ -281,7 +283,7 @@ module control_signals (SRAM_CS, SRAM_write, writeToSRAM, read1_addr, read2_addr
 				end
 			SUBS://load data onto alu
 				if (clk) begin
-					writeToSRAM=1'b0;
+					OE=1'b1;
 					Bselect=1'b0;
 					read1_addr=Rn;
 					read2_addr=Rm;

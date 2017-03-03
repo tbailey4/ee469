@@ -1,4 +1,4 @@
-`include "mux2.v"
+//`include "mux2.v"
 
 module barrelShifter (outData,inData,shift);
 

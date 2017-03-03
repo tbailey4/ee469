@@ -1,5 +1,5 @@
-`include "control_top.v"
-`include "SRAM_top.v"
+/*`include "control_top.v"
+//`include "SRAM.v"
 `include "register_file.v"
 `include "alu.v"
 `include "mux32_2.v"
@@ -12,6 +12,14 @@
 `include "mux16.v"
 `include "mux4.v"
 `include "SRAM.v"
+`include "mux2.v"
+`include "CLA_adder.v"
+`include "signExtender.v"
+`include "barrelShifter.v"
+`include "group_block.v"
+//`include "control_signals.v"
+//`include "instruction_decoder.v"
+//`include "instruction_memory.v"*/
 
 module integration (clk, fastclk,rst , KEY);
 	
@@ -21,7 +29,7 @@ module integration (clk, fastclk,rst , KEY);
 	wire [2:0] alu_function;
 	wire [4:0] read1_addr, read2_addr, write_addr;
 	wire write_en;
-	wire SRAM_CS, SRAM_write;
+	wire SRAM_CS, SRAM_write, OE;
 	wire Bselect;
 	wire [31:0] constant;
 	wire Dselect;
@@ -32,20 +40,21 @@ module integration (clk, fastclk,rst , KEY);
 	
 	wire [31:0] BusBalu, register_data;
 	
-	assign data=(!writeToSRAM)? read2_data :32'bZ ;
+	assign data=(OE)? read2_data :32'bZ ;
 	assign register_data=read1_data;
 	
 	
 	control_top controls (alu_function, //alu controls
 		read1_addr, read2_addr, write_addr, write_en, //reg file controls
-		SRAM_CS, SRAM_write, writeToSRAM, 	//sram controls
+		SRAM_CS, SRAM_write, writeToSRAM, OE,	//sram controls
 		Bselect, constant, 		//b mux select and input
 		Dselect,				 //d mux select
 		clk, V,C,N,Z, rst,		 //inputs
 		register_data,  		//for branch reg
 		controlSuspend);  		//input used to control the next step of control_top for demo purposes
 		
-	SRAM_top mySram (.data(data), .addr(outBus[10:0]), .CS(SRAM_CS), .write(SRAM_write), .clk(fastclk));
+	//SRAM_top mySram (.data(data), .addr(outBus[10:0]), .CS(SRAM_CS), .write(SRAM_write), .clk(fastclk));
+	SRAM mySram (.data(data), .address(outBus[10:0]),.OE(OE),.CS(1'b0),.RW(SRAM_write), .clk(fastclk));
 	register_file myreg (.read2_data(read2_data), .read1_data(read1_data), .read2_addr(read2_addr), 
 					.read1_addr(read1_addr), .write_addr(write_addr), .write_data(BusC), .write_en(write_en), .clk(fastclk), .rst(rst));
 					

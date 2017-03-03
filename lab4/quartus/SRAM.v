@@ -1,6 +1,7 @@
-//`include "MAR.v"
-//`include "MDR.v"
-//`include "SRAMmemory.v"
+`include "MAR.v"
+`include "MDR.v"
+`include "SRAMmemory.v"
+`include "memory.v"
 
 module SRAM (data, address,OE,CS,RW, clk/*,data1out,data2out*/);
 	

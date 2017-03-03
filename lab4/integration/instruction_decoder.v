@@ -31,7 +31,7 @@ module instruction_decoder (instruction, opcode, Rm, Rn, Rd, Rt, shamt, DT_addre
 			Rd = instruction [4:0];
 		end
 		//(ANDI) andi R
-		else if (instruction[31:21]>=11'h0A0 &&instruction[31:21]<=11'h0BF) begin
+		else if (instruction[31:21]>=11'h488 &&instruction[31:21]<=11'h489) begin
 			opcode= 10'b1001000100;
 			Rn=instruction[9:5];
 			ALUImm=instruction[21:10];
