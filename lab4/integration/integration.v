@@ -54,7 +54,7 @@ module integration (clk, fastclk,rst , KEY);
 		controlSuspend);  		//input used to control the next step of control_top for demo purposes
 		
 	//SRAM_top mySram (.data(data), .addr(outBus[10:0]), .CS(SRAM_CS), .write(SRAM_write), .clk(fastclk));
-	SRAM mySram (.data(data), .address(outBus[10:0]),.OE(OE),.CS(1'b0),.RW(SRAM_write), .clk(fastclk));
+	SRAM2 mySram (.data(data), .address(outBus[10:0]),.OE(OE),.CS(1'b0),.RW(SRAM_write), .clk(fastclk));
 	register_file myreg (.read2_data(read2_data), .read1_data(read1_data), .read2_addr(read2_addr), 
 					.read1_addr(read1_addr), .write_addr(write_addr), .write_data(BusC), .write_en(write_en), .clk(fastclk), .rst(rst));
 					

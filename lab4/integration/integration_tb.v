@@ -11,7 +11,7 @@
 `include "mux2_1.v"
 `include "mux16.v"
 `include "mux4.v"
-`include "SRAM.v"
+`include "SRAM2.v"
 `include "mux2.v"
 `include "CLA_adder.v"
 `include "signExtender.v"
