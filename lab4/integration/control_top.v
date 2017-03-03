@@ -47,6 +47,7 @@ module control_top (alu_function, //alu controls
 	wire [1:0] op;
 	wire [25:0] BR_Address;
 	wire [17:0] COND_BR_address;
+	wire [10:0] ALUImm;
 	
 	//used to write to instruction_memory
 	reg write_enable;
@@ -63,8 +64,8 @@ module control_top (alu_function, //alu controls
 	wire [6:0] addr;
 	
 	
-	control_signals outputSignals (SRAM_CS, SRAM_write, writeToSRAM,read1_addr, read2_addr, write_addr, write_en,alu_function, branch, Bselect, constant, Dselect, opcode,Rm,Rn,Rd,Rt,shamt,DT_address,op,BR_Address,COND_BR_address,clk, FLAGS);
-	instruction_decoder decoder (instruction, opcode, Rm, Rn, Rd, Rt, shamt, DT_address, op,BR_Address, COND_BR_address);
+	control_signals outputSignals (SRAM_CS, SRAM_write, writeToSRAM, read1_addr, read2_addr, write_addr, write_en,alu_function, ALUImm, branch, Bselect, constant, Dselect, opcode,Rm,Rn,Rd,Rt,shamt,DT_address,op,BR_Address,COND_BR_address,clk, FLAGS);
+	instruction_decoder decoder (instruction, opcode, Rm, Rn, Rd, Rt, shamt, DT_address, op,BR_Address, COND_BR_address, ALUImm);
 	instruction_memory instrutMemory ( instruction,addr, clk,write_enable);
 	
 	reg [6:0] pcounter,nextPcounter; //program counter used as address for instruction memory
@@ -81,6 +82,7 @@ module control_top (alu_function, //alu controls
 			if (opcode == 11'h6B0) begin
 				nextPcounter<=register_data;
 			end
+			// branch
 			else if (opcode == 6'b000101) begin
 				nextPcounter<=pcounter+BR_Address;
 			end

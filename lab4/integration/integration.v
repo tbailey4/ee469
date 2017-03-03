@@ -13,9 +13,9 @@
 `include "mux4.v"
 `include "SRAM.v"
 
-module integration (clk, fastclk,rst);
+module integration (clk, fastclk,rst , KEY);
 	
-	input clk, fastclk,rst;
+	input clk, fastclk,rst, KEY;
 	
 	//wires for control_top
 	wire [2:0] alu_function;
@@ -25,7 +25,7 @@ module integration (clk, fastclk,rst);
 	wire Bselect;
 	wire [31:0] constant;
 	wire Dselect;
-	reg V,C,N,Z;
+	reg V,C,N,Z, controlSuspend;
 	
 	wire [31:0] read2_data,read1_data,outBus, BusC,data;
 	wire Zero,Overflow,Carry, Negative;
@@ -61,6 +61,12 @@ module integration (clk, fastclk,rst);
 		C=Carry;
 		N=Negative;
 		Z=Zero;
+	end
+	
+	always @ (posedge clk) begin
+		//if KEY=1'b1, control_top doesn't progress (For demo purposes)
+		//if KEY=1'b0, control_top executes next instruction
+		controlSuspend=KEY;
 	end
 	
 endmodule

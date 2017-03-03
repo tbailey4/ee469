@@ -1,4 +1,4 @@
-module instruction_decoder (instruction, opcode, Rm, Rn, Rd, Rt, shamt, DT_address, op,BR_Address, COND_BR_address);
+module instruction_decoder (instruction, opcode, Rm, Rn, Rd, Rt, shamt, DT_address, op,BR_Address, COND_BR_address, ALUImm);
 
 	input [31:0] instruction;
 	output reg [10:0] opcode;
@@ -11,6 +11,7 @@ module instruction_decoder (instruction, opcode, Rm, Rn, Rd, Rt, shamt, DT_addre
 	output reg [1:0] op;
 	output reg [25:0] BR_Address;
 	output reg [17:0] COND_BR_address;
+	output reg [10:0] ALUImm;
 	
 	always @ (*) begin
 		//(ADD) add R
@@ -28,6 +29,13 @@ module instruction_decoder (instruction, opcode, Rm, Rn, Rd, Rt, shamt, DT_addre
 			shamt = instruction [15:10];
 			Rn= instruction [9:5];
 			Rd = instruction [4:0];
+		end
+		//(ANDI) andi R
+		else if (instruction[31:21]>=11'h0A0 &&instruction[31:21]<=11'h0BF) begin
+			opcode= 10'b1001000100;
+			Rn=instruction[9:5];
+			ALUImm=instruction[21:10];
+			Rd=instruction[4:0];
 		end
 		//(B) branch B
 		else if (instruction[31:21]>=11'h0A0 &&instruction[31:21]<=11'h0BF) begin
@@ -56,6 +64,14 @@ module instruction_decoder (instruction, opcode, Rm, Rn, Rd, Rt, shamt, DT_addre
 			Rn= instruction [9:5];
 			Rd = instruction [4:0];
 		end
+		// (LDUR) Load Register D
+		else if (instruction [31:21]==11'h7C2) begin
+			opcode = instruction [31:21];
+			DT_address=instruction[20:12];
+			op=instruction[11:10];
+			Rn=instruction[9:5];
+			Rt=instruction[4:0];
+		end
 		//(LDURSW) Load Word D
 		else if (instruction [31:21]==11'h5C4) begin
 			opcode = instruction [31:21];
@@ -80,6 +96,14 @@ module instruction_decoder (instruction, opcode, Rm, Rn, Rd, Rt, shamt, DT_addre
 			Rn= instruction [9:5];
 			Rd = instruction [4:0];
 		end
+		// (STUR) D
+		else if (instruction [31:21]==11'h7C0) begin
+			opcode = instruction [31:21];
+			DT_address=instruction[20:12];
+			op=instruction[11:10];
+			Rn=instruction[9:5];
+			Rt=instruction[4:0];
+		end
 		//(STURW) Store Word D
 		else if (instruction [31:21]==11'h5C0) begin
 			opcode = instruction [31:21];
@@ -90,6 +114,14 @@ module instruction_decoder (instruction, opcode, Rm, Rn, Rd, Rt, shamt, DT_addre
 		end
 		//(SUB) Subtraction R
 		else if (instruction [31:21]==11'h658) begin
+			opcode = instruction [31:21];
+			Rm = instruction [20:16];
+			shamt = instruction [15:10];
+			Rn= instruction [9:5];
+			Rd = instruction [4:0];
+		end
+		//(SUBS) Subtraction and set flags R
+		else if (instruction [31:21]==11'h758) begin
 			opcode = instruction [31:21];
 			Rm = instruction [20:16];
 			shamt = instruction [15:10];
